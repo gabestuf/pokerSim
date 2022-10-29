@@ -10,6 +10,10 @@ class Deck {
         for (let i = 0; i < 52; i++) {
             this.cards.push(new Card(i))
         }
+        return {
+            status: 'SUCCESS',
+            message: 'Deck initiated'
+        }
     }
 
     shuffle() { //Fisher-Yates 
@@ -26,12 +30,15 @@ class Deck {
             [this.cards[currentIndex], this.cards[randomIndex]] =
                 [this.cards[randomIndex], this.cards[currentIndex]];
         }
-
+        return {
+            status: 'SUCCESS',
+            message: 'shuffled deck'
+        }
     }
 
     cardLog() {
         for (const card of this.cards) {
-            card.log()
+            console.log(card.toString())
         }
     }
 

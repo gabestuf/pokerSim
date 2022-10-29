@@ -1,9 +1,9 @@
 const Game = require('./Game')
-const numPlayers = 4
+const CONFIG = require('./CONFIG.json')
 
-
-const pokerGame = new Game()
+const pokerGame = new Game(CONFIG)
 
 pokerGame.init()
-pokerGame.deck.shuffle()
-pokerGame.cardLog()
+// pokerGame.deck.shuffle()
+// pokerGame.cardLog()
+

@@ -7,13 +7,15 @@ const toCardValues = (num) => {
     if (num === 12) return "Queen";
     if (num === 13) return "King";
     if (num === 14) return "Ace";
-    console.error("Something went wrong")
-    return false
+    return {
+        status: 'FAILED',
+        message: 'error in function toCardValues'
+    }
 }
 
 const convertCardID = (num) => {
     // takes num 0...51
-    if (num < 0 || num > 51) return false;
+    if (num < 0 || num > 51) return -1
 
     let suit = ""
 
@@ -56,8 +58,8 @@ class Card {
         this.stringValue = convertCardID(id_).stringValue
     }
 
-    log() {
-        console.log(this.stringValue, " of ", this.suit)
+    toString() {
+        return `${this.stringValue} of ${this.suit}`
     }
 
 }
