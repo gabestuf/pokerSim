@@ -6,6 +6,7 @@ class Player {
         this.money = 0
         this.name = `Player ${id}`
         this.id = id
+        this.amtBetThisPhase = 0
     }
 
     toString() {
@@ -22,12 +23,20 @@ class Player {
     recieveHand(card1, card2) {
         this.hand = new Hand(card1, card2)
     }
+
     folds() {
 
         return this.hand
     }
-    bets(bet) {
 
+    bets(bet) {
+        if (this.money - bet < 0 && this.money > 0) {
+            console.error(this.name + " doesn't have enough money, going all in.")
+            bet = this.money
+            this.money = 0
+        }
+        this.money -= bet
+        this.amtBetThisPhase += bet
         return bet
     }
 

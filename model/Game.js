@@ -7,16 +7,21 @@ class Game {
         this.config = config
         this.players = []
         this.deck = new Deck()
-        this.nextSeatAvailable = 0
+        this.nextID = 0
         this.pot = 0
         this.button = 0
         this.blinds = config.startingBigBlind
+        this.currentTurn = 0
+        this.betPhase = 0 // 0 = preflop, 1 = flop, 2 = turn, 3 = river
     }
 
     toString() {
-        let str = '\n'
-        for (const player of this.players) {
-            str += player.toString() + "\n"
+        let str = `The pot is ${this.pot} \n`
+        for (let i = 0; i < this.players.length; i++) {
+            if (i == this.currentTurn) {
+                str += '* ' // indicating it's this player's turn
+            }
+            str += this.players[i].toString() + "\n"
         }
         return str
     }
@@ -27,13 +32,22 @@ class Game {
 
         // INIT Players
         for (let i = 0; i < this.config.numPlayers; i++) {
-            this.players.push(new Player(this.nextSeatAvailable))
-            this.nextSeatAvailable++
+            this.players.push(new Player(this.nextID))
+            this.nextID++
         }
 
         // Add starting money for each player
         for (const player of this.players) {
             player.addMoney(this.config.startingMoney)
+        }
+
+        this.currentTurn = this.button + 1
+    }
+
+    updateCurrentTurn() {
+        this.currentTurn++
+        if (this.currentTurn > this.players.length - 1) {
+            this.currentTurn = 0
         }
     }
 
@@ -42,9 +56,9 @@ class Game {
             console.error('Currently ', this.players.length, ' Players. Cannot add more than 8 players')
             return -1
         }
-        this.players.push(new Player(this.nextSeatAvailable))
-        this.players[this.nextSeatAvailable].addMoney(this.config.startingMoney)
-        this.nextSeatAvailable++
+        this.players.push(new Player(this.nextID))
+        this.players[this.nextID].addMoney(this.config.startingMoney)
+        this.nextID++
     }
 
     deal() {
@@ -55,9 +69,34 @@ class Game {
         }
     }
 
-    playHand() {
+    startHand() {
         this.deal()
-        this.players[this.button + 1].bets()
+        this.pot += this.players[this.button + 1].bets(Math.round(this.blinds / 2))
+        this.updateCurrentTurn()
+        this.pot += this.players[this.button + 2].bets(Math.round(this.blinds))
+        this.updateCurrentTurn()
+    }
+
+    action(action, amount = 0) {
+        switch (action) {
+            case 'check':
+                break;
+            case 'bet':
+                break;
+            case 'fold':
+                break;
+            default:
+                console.error('Invalid action')
+                break;
+        }
+    }
+
+    removePlayer(id) {
+        for (const player of this.players) {
+            if (player.id == id) {
+                this.players.pop(player)
+            }
+        }
     }
 
 }

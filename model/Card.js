@@ -51,9 +51,6 @@ const convertCardID = (num) => {
     }
 }
 
-
-
-
 class Card {
     constructor(id_) {
         this.id = id_
