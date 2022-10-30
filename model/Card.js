@@ -15,7 +15,11 @@ const toCardValues = (num) => {
 
 const convertCardID = (num) => {
     // takes num 0...51
-    if (num < 0 || num > 51) return -1
+    if (num < 0 || num > 51) return {
+        suit: undefined,
+        value: undefined,
+        stringValue: undefined
+    }
 
     let suit = ""
 

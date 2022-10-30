@@ -7,7 +7,7 @@ class Hand {
     }
 
     toString() {
-        return `${this.card1.log()} | ${this.card2.log()}`
+        return `${this.card1.toString()} | ${this.card2.toString()}`
     }
 }
 

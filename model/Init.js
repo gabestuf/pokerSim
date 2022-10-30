@@ -4,6 +4,11 @@ const CONFIG = require('./CONFIG.json')
 const pokerGame = new Game(CONFIG)
 
 pokerGame.init()
-// pokerGame.deck.shuffle()
+
+
 // pokerGame.cardLog()
 
+/* Play a hand of Poker */
+pokerGame.deck.shuffle()
+pokerGame.playHand()
+console.log(pokerGame.toString())

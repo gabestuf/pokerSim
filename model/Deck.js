@@ -7,6 +7,7 @@ class Deck {
     }
 
     init() {
+        this.cards = []
         for (let i = 0; i < 52; i++) {
             this.cards.push(new Card(i))
         }
@@ -43,7 +44,7 @@ class Deck {
     }
 
     pop() {
-
+        return this.cards.pop()
     }
 }
 
